@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <title>ເວັບໄຊທົດລອງຂອງຂ້ອຍ</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 100px; background-color: #f4f4f9; }
+        .box { background: white; padding: 30px; display: inline-block; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>ຍິນດີຕ້ອນຮັບເຂົ້າສູ່ເວັບໄຊທໍາອິດ!</h1>
+        <p id="quote-text">ກໍາລັງໂຫຼດຄໍາຄົມ...</p>
+        <button onclick="getQuote()">ສຸ່ມຄໍາຄົມໃໝ່</button>
+    </div>
+
+    <script>
+        // ⚠️ ປ່ຽນ URL ນີ້ ຫຼັງຈາກທີ່ເຈົ້າ Deploy Backend ຢູ່ Render ສໍາເລັດແລ້ວ
+        const BACKEND_URL = "http://localhost:3000"; 
+
+        async function getQuote() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/quote`);
+                const data = await response.json();
+                document.getElementById('quote-text').innerText = data.quote;
+            } catch (error) {
+                document.getElementById('quote-text').innerText = "ໂຫຼດຂໍ້ມູນຜິດພາດ!";
+            }
+        }
+        getQuote(); // ຮຽກໃຊ້ຄັ້ງທໍາອິດເມື່ອເປີດໜ້າເວັບ
+    </script>
+</body>
+</html>
